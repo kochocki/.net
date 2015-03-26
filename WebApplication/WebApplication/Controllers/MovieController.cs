@@ -14,12 +14,17 @@ namespace WebApplication.Controllers
 {
     public class MovieController : Controller
     {
-        //MovieRepository<Movie> _movieRepository = new MovieRepository<Movie>(new MovieDBContext());
-        IMovieRepository<Movie> _movieRepository;
-        public MovieController(IMovieRepository<Movie> movie)
-        {
-            _movieRepository = movie;
-        }
+	    private readonly IMovieRepository<Movie> _movieRepository;
+
+		//public MovieController()
+		//{
+		//	_movieRepository = new MovieRepository<Movie>(new MovieDBContext());
+		//}
+
+		public MovieController(IMovieRepository<Movie> movie)
+		{
+			_movieRepository = movie;
+		}
 
         // GET: Movies
         public ActionResult Index()
@@ -97,7 +102,7 @@ namespace WebApplication.Controllers
         // GET: Movies/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id.HasValue)
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
